@@ -1,0 +1,86 @@
+body {
+	background-color: antiquewhite;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.error {
+	background-color: lightpink;
+	font-size: 2rem;
+	padding: 16px;
+	border: 5px dashed darkgoldenrod;
+}
+
+.input-location {
+	text-align: center;
+
+	label,
+	input[type='text'] {
+		display: flex;
+		justify-content: center;
+		margin: 0 auto;
+	}
+
+	input[type='button'] {
+		background-color: aquamarine; /* Green */
+		border: none;
+		padding: 4px 16px;
+		text-decoration: none;
+		margin: 16px;
+	}
+
+	@media (min-width: 1025px) {
+		text-align: left;
+
+		label,
+		input[type='text'] {
+			display: inline;
+			margin-right: 8px;
+		}
+
+		input[type='button'] {
+			margin: 8px;
+		}
+	}
+}
+
+.weather-info {
+	text-align: center;
+	color: cornflowerblue;
+
+	h1 {
+		color: black;
+	}
+
+	table {
+		text-align: left;
+		margin: 0 auto;
+	}
+
+	tr {
+		td:last-child {
+			color: black;
+		}
+	}
+
+	@media (min-width: 1025px) {
+		text-align: left;
+
+		table {
+			margin: 0;
+		}
+	}
+}
+
+.search-history {
+	display: flex;
+	justify-content: space-between;
+
+	.search-history-details {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	@media (min-width: 1025px) {
+		width: 50%;
+	}
+}
