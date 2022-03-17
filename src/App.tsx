@@ -46,7 +46,7 @@ async function fetchCurrentWeather(
 	lat: Lat,
 	lon: Lon
 ): Promise<{ [key: string]: any } | null> {
-	const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+	const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
 
 	try {
 		const response = await fetch(url);
@@ -120,11 +120,9 @@ function App() {
 
 		const { weather, main } = weatherData;
 
-		const [primaryWeather] = weather;
-		const formatWeatherMain = { ...primaryWeather, ...main };
+		const formatWeatherMain = { ...weather[0], ...main };
 
-		const currentTime = new Date();
-		const includeTime = { ...location.current, date: currentTime };
+		const includeTime = { ...location.current, date: new Date() };
 		let formatPastWeathers = [includeTime];
 
 		if (pastWeathers) {
