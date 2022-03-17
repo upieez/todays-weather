@@ -68,16 +68,44 @@ function App() {
 	const inputCity = useRef<HTMLInputElement>(null);
 	const inputCountry = useRef<HTMLInputElement>(null);
 
+	const displayError = (msg = 'Not Found'): void => {
+		setErrorMsg(msg);
+		handleOnClear();
+	};
+
+	const transformCityCountry = ({
+		city,
+		country,
+	}: {
+		city: string;
+		country: string;
+	}) => {
+		if (city && country) {
+			return `${city}, ${country.toUpperCase()}`;
+		}
+
+		if (city) {
+			return `${city}`;
+		}
+
+		return '';
+	};
+
 	const handleOnSearch = async () => {
 		const formatCityAndCountry = [
 			inputCity?.current?.value,
 			inputCountry?.current?.value,
 		];
+
+		if (!inputCity?.current?.value) {
+			displayError('Please input city');
+			return;
+		}
+
 		const latLonData = await fetchLatLon(formatCityAndCountry.join());
 
 		if (!latLonData) {
-			setErrorMsg('Not Found');
-			handleOnClear();
+			displayError();
 			return;
 		}
 
@@ -86,8 +114,7 @@ function App() {
 		const weatherData = await fetchCurrentWeather(lat, lon);
 
 		if (!weatherData) {
-			setErrorMsg('Invalid Weather!');
-			handleOnClear();
+			displayError('Invalid Weather');
 			return;
 		}
 
@@ -186,7 +213,7 @@ function App() {
 			<div className='weather-info'>
 				{Object.keys(weather).length === 0 ? null : (
 					<>
-						<p>{`${location.current.city}, ${location.current.country}`}</p>
+						<p>{transformCityCountry(location.current)}</p>
 						<h1>{weather.main}</h1>
 						<table>
 							<tbody>
@@ -197,7 +224,7 @@ function App() {
 								<tr>
 									<td>Temperature: </td>
 									<td>
-										{weather.temp_min}C ~ {weather.temp_max}C
+										{weather.temp_min}°C ~ {weather.temp_max}°C
 									</td>
 								</tr>
 								<tr>
@@ -224,7 +251,7 @@ function App() {
 							return (
 								<div className='search-history' key={saved.date}>
 									<p>
-										<span>{index + 1}.</span> {saved.city},{saved.country}
+										<span>{index + 1}.</span> {transformCityCountry(saved)}
 									</p>
 									<p className='search-history-details'>
 										<time>{dayjs(saved.date).format('LTS')}</time>

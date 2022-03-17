@@ -21,7 +21,7 @@ body {
 	}
 
 	input[type='button'] {
-		background-color: aquamarine; /* Green */
+		background-color: aquamarine;
 		border: none;
 		padding: 4px 16px;
 		text-decoration: none;
@@ -46,6 +46,10 @@ body {
 .weather-info {
 	text-align: center;
 	color: cornflowerblue;
+
+	p {
+		text-transform: capitalize;
+	}
 
 	h1 {
 		color: black;
@@ -75,9 +79,8 @@ body {
 	display: flex;
 	justify-content: space-between;
 
-	.search-history-details {
-		display: flex;
-		justify-content: space-between;
+	.search-history-details > * {
+		margin-right: 8px;
 	}
 
 	@media (min-width: 1025px) {
